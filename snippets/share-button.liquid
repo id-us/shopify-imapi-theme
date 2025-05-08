@@ -10,18 +10,39 @@
     share_link: share_url
   %}
 {% endcomment %}
+{%- liquid
+  if settings.dir == 'ltr'
+    assign dir = 'ltr'
+  else
+    assign dir = 'rtl'
+  endif
+-%}
 <script src="{{ 'share.js' | asset_url }}" defer="defer"></script>
 
 <share-button id="Share-{{ section.id }}" class="share-button quick-add-hidden" {{ block.shopify_attributes }}>
-  <button class="share-button__button hidden">
-    <span class="svg-wrapper">{{ 'icon-share.svg' | inline_asset_content }}</span>
-    {{ block.settings.share_label | escape }}
-  </button>
-  <details id="Details-{{ block.id }}-{{ section.id }}">
-    <summary class="share-button__button">
+  {% if dir == 'ltr' %}
+    <button class="share-button__button hidden">
       <span class="svg-wrapper">{{ 'icon-share.svg' | inline_asset_content }}</span>
       {{ block.settings.share_label | escape }}
-    </summary>
+    </button>
+  {% else %}
+    <button class="share-button__button hidden">
+      {{ block.settings.share_label | escape }}
+      <span class="svg-wrapper">{{ 'icon-share.svg' | inline_asset_content }}</span>
+    </button>
+  {% endif %}
+  <details id="Details-{{ block.id }}-{{ section.id }}">
+    {% if dir == 'ltr' %}
+      <summary class="share-button__button">
+        <span class="svg-wrapper">{{ 'icon-share.svg' | inline_asset_content }}</span>
+        {{ block.settings.share_label | escape }}
+      </summary>
+    {% else %}
+      <summary class="share-button__button">
+        {{ block.settings.share_label | escape }}
+        <span class="svg-wrapper">{{ 'icon-share.svg' | inline_asset_content }}</span>
+      </summary>
+    {% endif %}
     <div class="share-button__fallback motion-reduce">
       <div class="field">
         <span id="ShareMessage-{{ section.id }}" class="share-button__message hidden" role="status"> </span>

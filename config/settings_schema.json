@@ -1,9 +1,9 @@
 [
   {
     "name": "theme_info",
-    "theme_name": "Dawn",
-    "theme_version": "15.3.0",
-    "theme_author": "Shopify",
+    "theme_name": "imapi theme",
+    "theme_version": "1.0.0",
+    "theme_author": "imapi",
     "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
     "theme_support_url": "https://support.shopify.com/"
   },
@@ -149,6 +149,22 @@
   {
     "name": "t:settings_schema.layout.name",
     "settings": [
+      {
+        "type": "select",
+        "id": "dir",
+        "label": "Direction",
+        "default": "ltr",
+        "options": [
+          {
+            "value": "ltr",
+            "label": "Left-To-Right"
+          },
+          {
+            "value": "rtl",
+            "label": "Right-To-Left"
+          }
+        ]
+      },
       {
         "type": "range",
         "id": "page_width",
@@ -518,17 +534,17 @@
         "id": "card_text_alignment",
         "options": [
           {
-            "value": "left",
-            "label": "t:settings_schema.global.settings.text_alignment.options__1.label"
+            "value": "right",
+            "label": "t:settings_schema.global.settings.text_alignment.options__3.label"
           },
           {
             "value": "center",
             "label": "t:settings_schema.global.settings.text_alignment.options__2.label"
           },
           {
-            "value": "right",
-            "label": "t:settings_schema.global.settings.text_alignment.options__3.label"
-          }
+            "value": "left",
+            "label": "t:settings_schema.global.settings.text_alignment.options__1.label"
+          },
         ],
         "default": "left",
         "label": "t:settings_schema.global.settings.text_alignment.label"

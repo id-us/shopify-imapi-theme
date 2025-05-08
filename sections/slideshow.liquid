@@ -2,6 +2,14 @@
 {{ 'component-slider.css' | asset_url | stylesheet_tag }}
 {{ 'component-slideshow.css' | asset_url | stylesheet_tag }}
 
+{%- liquid
+  if settings.dir == 'ltr'
+    assign dir = 'ltr'
+  else
+    assign dir = 'rtl'
+  endif
+-%}
+
 {%- if section.settings.slide_height == 'adapt_image' and section.blocks.first.settings.image != blank -%}
   {%- style -%}
     @media screen and (max-width: 749px) {
@@ -46,10 +54,18 @@
       </button>
       <div class="slider-counter slider-counter--{{ section.settings.slider_visual }}{% if section.settings.slider_visual == 'counter' or section.settings.slider_visual == 'numbers' %} caption{% endif %}">
         {%- if section.settings.slider_visual == 'counter' -%}
-          <span class="slider-counter--current">1</span>
+          {% if dir == 'ltr' %}
+            <span class="slider-counter--current">1</span>
+          {% else %}
+            <span class="slider-counter--total">{{ section.blocks.size }}</span>
+          {% endif %}
           <span aria-hidden="true"> / </span>
           <span class="visually-hidden">{{ 'general.slider.of' | t }}</span>
-          <span class="slider-counter--total">{{ section.blocks.size }}</span>
+          {% if dir == 'ltr' %}
+            <span class="slider-counter--total">{{ section.blocks.size }}</span>
+          {% else %}
+            <span class="slider-counter--current">1</span>
+          {% endif %}
         {%- else -%}
           <div class="slideshow__control-wrapper">
             {%- for block in section.blocks -%}
@@ -205,10 +221,18 @@
       </button>
       <div class="slider-counter slider-counter--{{ section.settings.slider_visual }}{% if section.settings.slider_visual == 'counter' or section.settings.slider_visual == 'numbers' %} caption{% endif %}">
         {%- if section.settings.slider_visual == 'counter' -%}
-          <span class="slider-counter--current">1</span>
+          {% if dir == 'ltr' %}
+            <span class="slider-counter--current">1</span>
+          {% else %}
+            <span class="slider-counter--total">{{ section.blocks.size }}</span>
+          {% endif %}
           <span aria-hidden="true"> / </span>
           <span class="visually-hidden">{{ 'general.slider.of' | t }}</span>
-          <span class="slider-counter--total">{{ section.blocks.size }}</span>
+          {% if dir == 'ltr' %}
+            <span class="slider-counter--total">{{ section.blocks.size }}</span>
+          {% else %}
+            <span class="slider-counter--current">1</span>
+          {% endif %}
         {%- else -%}
           <div class="slideshow__control-wrapper">
             {%- for block in section.blocks -%}
@@ -452,12 +476,12 @@
         {
           "type": "header",
           "content": "t:sections.slideshow.blocks.slide.settings.header_button.content"
-        },        
+        },
         {
           "type": "text",
           "id": "button_label",
           "default": "t:sections.slideshow.blocks.slide.settings.button_label.default",
-          "label": "t:sections.slideshow.blocks.slide.settings.button_label.label", 
+          "label": "t:sections.slideshow.blocks.slide.settings.button_label.label",
           "info": "t:sections.slideshow.blocks.slide.settings.button_label.info"
         },
         {
@@ -474,7 +498,7 @@
         {
           "type": "header",
           "content": "t:sections.slideshow.blocks.slide.settings.header_layout.content"
-        },         
+        },
         {
           "type": "checkbox",
           "id": "show_text_box",
@@ -530,16 +554,16 @@
           "id": "text_alignment",
           "options": [
             {
-              "value": "left",
-              "label": "t:sections.slideshow.blocks.slide.settings.text_alignment.option_1.label"
+              "value": "right",
+              "label": "t:sections.slideshow.blocks.slide.settings.text_alignment.option_3.label"
             },
             {
               "value": "center",
               "label": "t:sections.slideshow.blocks.slide.settings.text_alignment.option_2.label"
             },
             {
-              "value": "right",
-              "label": "t:sections.slideshow.blocks.slide.settings.text_alignment.option_3.label"
+              "value": "left",
+              "label": "t:sections.slideshow.blocks.slide.settings.text_alignment.option_1.label"
             }
           ],
           "default": "center",
@@ -550,21 +574,21 @@
           "id": "text_alignment_mobile",
           "options": [
             {
-              "value": "left",
-              "label": "t:sections.slideshow.blocks.slide.settings.text_alignment_mobile.options__1.label"
+              "value": "right",
+              "label": "t:sections.slideshow.blocks.slide.settings.text_alignment_mobile.options__3.label"
             },
             {
               "value": "center",
               "label": "t:sections.slideshow.blocks.slide.settings.text_alignment_mobile.options__2.label"
             },
             {
-              "value": "right",
-              "label": "t:sections.slideshow.blocks.slide.settings.text_alignment_mobile.options__3.label"
+              "value": "left",
+              "label": "t:sections.slideshow.blocks.slide.settings.text_alignment_mobile.options__1.label"
             }
           ],
           "default": "center",
           "label": "t:sections.slideshow.blocks.slide.settings.text_alignment_mobile.label"
-        },        
+        },
         {
           "type": "color_scheme",
           "id": "color_scheme",

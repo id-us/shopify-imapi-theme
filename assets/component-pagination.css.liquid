@@ -1,0 +1,112 @@
+{%- liquid
+  if settings.dir == 'ltr'
+    assign dir = 'ltr'
+  else
+    assign dir = 'rtl'
+  endif
+-%}
+
+.pagination-wrapper {
+  margin-top: 4rem;
+}
+
+@media screen and (min-width: 990px) {
+  .pagination-wrapper {
+    margin-top: 5rem;
+  }
+}
+
+.pagination__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.pagination__list > li {
+  flex: 1 0 4.4rem;
+  max-width: 4.4rem;
+}
+
+.pagination__list > li:not(:last-child) {
+  {% if dir == 'ltr' %}
+    margin-right: 1rem;
+  {% else %}  
+    margin-left: 1rem;
+  {% endif %}
+}
+
+.pagination__item {
+  color: rgb(var(--color-foreground));
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 4.4rem;
+  width: 100%;
+  padding: 0;
+  text-decoration: none;
+}
+
+a.pagination__item:hover::after {
+  height: 0.1rem;
+}
+
+.pagination__item .icon-caret {
+  height: 0.6rem;
+}
+
+.pagination__item--current::after {
+  height: 0.1rem;
+}
+
+.pagination__item--current::after,
+.pagination__item:hover::after {
+  content: '';
+  display: block;
+  width: 2rem;
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: currentColor;
+}
+
+.pagination__item--next .icon {
+  {% if dir == 'ltr' %}
+    margin-left: -0.2rem;
+    transform: rotate(90deg);
+  {% else %}  
+    margin-right: -0.2rem;
+    transform: rotate(-90deg);
+  {% endif %}
+}
+
+.pagination__item--next:hover .icon {
+  {% if dir == 'ltr' %}
+    transform: rotate(90deg) scale(1.07);
+  {% else %}  
+    transform: rotate(-90deg) scale(1.07);
+  {% endif %}
+}
+
+.pagination__item--prev .icon {
+  {% if dir == 'ltr' %}
+    margin-right: -0.2rem;
+    transform: rotate(-90deg);
+  {% else %}  
+    margin-left: -0.2rem;
+    transform: rotate(90deg);
+  {% endif %}
+}
+
+.pagination__item--prev:hover .icon {
+  {% if dir == 'ltr' %}
+    transform: rotate(-90deg) scale(1.07);
+  {% else %}  
+    transform: rotate(90deg) scale(1.07);
+  {% endif %}
+}
+
+.pagination__item-arrow:hover::after {
+  display: none;
+}

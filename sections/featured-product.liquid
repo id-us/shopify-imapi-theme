@@ -3,6 +3,12 @@
   if product == null
     assign placeholder = true
   endif
+
+  if settings.dir == 'ltr'
+    assign dir = 'ltr'
+  else
+    assign dir = 'rtl'
+  endif
 -%}
 
 <product-info
@@ -289,7 +295,10 @@
                                   </dt>
                                   <dd>
                                     <span class="price-per-item--current">
-                                      {{- 'products.product.volume_pricing.price_at_each_html' | t: price: variant_price -}}
+                                      {{-
+                                        'products.product.volume_pricing.price_at_each_html'
+                                        | t: price: variant_price
+                                      -}}
                                     </span>
                                   </dd>
                                 </dl>
@@ -436,17 +445,31 @@
                   {% render 'icon-with-text', block: block %}
               {%- endcase -%}
             {%- endfor -%}
-            <a
-              {% if product == blank %}
-                role="link" aria-disabled="true"
-              {% else %}
-                href="{{ product.url }}"
-              {% endif %}
-              class="link product__view-details animate-arrow"
-            >
-              {{ 'products.product.view_full_details' | t }}
-              {{- 'icon-arrow.svg' | inline_asset_content -}}
-            </a>
+            {% if dir == 'ltr' %}
+              <a
+                {% if product == blank %}
+                  role="link" aria-disabled="true"
+                {% else %}
+                  href="{{ product.url }}"
+                {% endif %}
+                class="link product__view-details animate-arrow"
+              >
+                {{ 'products.product.view_full_details' | t }}
+                {{- 'icon-arrow.svg' | inline_asset_content -}}
+              </a>
+            {% else %}
+              <a
+                {% if product == blank %}
+                  role="link" aria-disabled="true"
+                {% else %}
+                  href="{{ product.url }}"
+                {% endif %}
+                class="link product__view-details animate-arrow"
+              >
+                {{- 'icon-arrow.svg' | inline_asset_content -}}
+                {{ 'products.product.view_full_details' | t }}
+              </a>
+            {% endif %}
           </section>
         </div>
       </div>

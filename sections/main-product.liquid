@@ -1,3 +1,10 @@
+{%- liquid
+  if settings.dir == 'ltr'
+    assign dir = 'ltr'
+  else
+    assign dir = 'rtl'
+  endif
+-%}
 <product-info
   id="MainProduct-{{ section.id }}"
   class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}"
@@ -356,7 +363,10 @@
                                 </dt>
                                 <dd>
                                   <span class="price-per-item--current">
-                                    {{- 'products.product.volume_pricing.price_at_each_html' | t: price: variant_price -}}
+                                    {{-
+                                      'products.product.volume_pricing.price_at_each_html'
+                                      | t: price: variant_price
+                                    -}}
                                   </span>
                                 </dd>
                               </dl>
@@ -610,10 +620,18 @@
                               </button>
                               <div class="slider-counter slider-counter--{{ block.settings.pagination_style }}{% if block.settings.pagination_style == 'counter' or block.settings.pagination_style == 'numbers' %} caption{% endif %}">
                                 {%- if block.settings.pagination_style == 'counter' -%}
-                                  <span class="slider-counter--current">1</span>
+                                  {% if dir == 'ltr' %}
+                                    <span class="slider-counter--current">1</span>
+                                  {% else %}
+                                    <span class="slider-counter--total">{{ number_of_slides }}</span>
+                                  {% endif %}
                                   <span aria-hidden="true"> / </span>
                                   <span class="visually-hidden">{{ 'general.slider.of' | t }}</span>
-                                  <span class="slider-counter--total">{{ number_of_slides }}</span>
+                                  {% if dir == 'ltr' %}
+                                    <span class="slider-counter--total">{{ number_of_slides }}</span>
+                                  {% else %}
+                                    <span class="slider-counter--current">1</span>
+                                  {% endif %}
                                 {%- else -%}
                                   <div class="slideshow__control-wrapper">
                                     {%- for i in (1..number_of_slides) -%}
@@ -662,10 +680,17 @@
                 {% render 'icon-with-text', block: block %}
             {%- endcase -%}
           {%- endfor -%}
-          <a href="{{ product.url }}" class="link product__view-details animate-arrow">
-            {{ 'products.product.view_full_details' | t }}
-            {{- 'icon-arrow.svg' | inline_asset_content -}}
-          </a>
+          {% if dir == 'ltr' %}
+            <a href="{{ product.url }}" class="link product__view-details animate-arrow">
+              {{ 'products.product.view_full_details' | t }}
+              {{- 'icon-arrow.svg' | inline_asset_content -}}
+            </a>
+          {% else %}
+            <a href="{{ product.url }}" class="link product__view-details animate-arrow">
+              {{- 'icon-arrow.svg' | inline_asset_content -}}
+              {{ 'products.product.view_full_details' | t }}
+            </a>
+          {% endif %}
         </section>
       </div>
     </div>
@@ -1674,7 +1699,7 @@
         {
           "type": "header",
           "content": "t:sections.main-product.blocks.icon_with_text.settings.pairing_2.label"
-        },        
+        },
         {
           "type": "select",
           "id": "icon_2",
@@ -1874,7 +1899,7 @@
         {
           "type": "header",
           "content": "t:sections.main-product.blocks.icon_with_text.settings.pairing_3.label"
-        },        
+        },
         {
           "type": "select",
           "id": "icon_3",
@@ -2176,18 +2201,18 @@
       ],
       "default": "hide",
       "label": "t:sections.main-product.settings.mobile_thumbnails.label"
-    },    
+    },
     {
       "type": "select",
       "id": "media_position",
       "options": [
         {
-          "value": "left",
-          "label": "t:sections.main-product.settings.media_position.options__1.label"
-        },
-        {
           "value": "right",
           "label": "t:sections.main-product.settings.media_position.options__2.label"
+        },
+        {
+          "value": "left",
+          "label": "t:sections.main-product.settings.media_position.options__1.label"
         }
       ],
       "default": "left",

@@ -1,3 +1,7 @@
+function isRTL() {
+  return document.documentElement.getAttribute('dir') === 'rtl' || document.body.getAttribute('dir') === 'rtl';
+}
+
 function getFocusableElements(container) {
   return Array.from(
     container.querySelectorAll(
@@ -286,7 +290,6 @@ function debounce(fn, wait) {
     t = setTimeout(() => fn.apply(this, args), wait);
   };
 }
-
 
 function throttle(fn, delay) {
   let lastCall = 0;
@@ -727,56 +730,81 @@ customElements.define('deferred-media', DeferredMedia);
 
 class SliderComponent extends HTMLElement {
   constructor() {
-    super();
-    this.slider = this.querySelector('[id^="Slider-"]');
-    this.sliderItems = this.querySelectorAll('[id^="Slide-"]');
-    this.enableSliderLooping = false;
-    this.currentPageElement = this.querySelector('.slider-counter--current');
-    this.pageTotalElement = this.querySelector('.slider-counter--total');
-    this.prevButton = this.querySelector('button[name="previous"]');
-    this.nextButton = this.querySelector('button[name="next"]');
-
-    if (!this.slider || !this.nextButton) return;
-
-    this.initPages();
-    const resizeObserver = new ResizeObserver((entries) => this.initPages());
-    resizeObserver.observe(this.slider);
-
-    this.slider.addEventListener('scroll', this.update.bind(this));
-    this.prevButton.addEventListener('click', this.onButtonClick.bind(this));
-    this.nextButton.addEventListener('click', this.onButtonClick.bind(this));
+    if (
+      (super(),
+      (this.slider = this.querySelector('[id^="Slider-"]')),
+      (this.sliderItems = this.querySelectorAll('[id^="Slide-"]')),
+      (this.enableSliderLooping = !1),
+      (this.currentPageElement = this.querySelector('.slider-counter--current')),
+      (this.pageTotalElement = this.querySelector('.slider-counter--total')),
+      (this.prevButton = this.querySelector('button[name="previous"]')),
+      (this.nextButton = this.querySelector('button[name="next"]')),
+      !this.slider || !this.nextButton)
+    )
+      return;
+    this.initPages(),
+      new ResizeObserver((entries) => this.initPages()).observe(this.slider),
+      this.slider.addEventListener('scroll', this.update.bind(this)),
+      this.prevButton.addEventListener('click', this.onButtonClick.bind(this)),
+      this.nextButton.addEventListener('click', this.onButtonClick.bind(this));
   }
-
   initPages() {
+    // Get visible slider items (those with a width > 0)
     this.sliderItemsToShow = Array.from(this.sliderItems).filter((element) => element.clientWidth > 0);
-    if (this.sliderItemsToShow.length < 2) return;
-    this.sliderItemOffset = this.sliderItemsToShow[1].offsetLeft - this.sliderItemsToShow[0].offsetLeft;
-    this.slidesPerPage = Math.floor(
-      (this.slider.clientWidth - this.sliderItemsToShow[0].offsetLeft) / this.sliderItemOffset
-    );
-    this.totalPages = this.sliderItemsToShow.length - this.slidesPerPage + 1;
-    this.update();
-  }
 
+    // Only proceed if there are at least two visible items
+    if (this.sliderItemsToShow.length >= 2) {
+      // Calculate the offset between the first two visible slider items
+      // 374
+      if (isRTL()) {
+        this.sliderItemOffset = this.sliderItemsToShow[0].offsetLeft - this.sliderItemsToShow[1].offsetLeft;
+      } else {
+        this.sliderItemOffset = this.sliderItemsToShow[1].offsetLeft - this.sliderItemsToShow[0].offsetLeft;
+      }
+      if (this.sliderItemsToShow.length > 3) window.dev = this;
+
+      // Calculate how many slides can fit per page based on container width and item offset
+      // 3
+      if (isRTL()) {
+        this.slidesPerPage = Math.floor(
+          (this.sliderItemsToShow[0].offsetLeft + this.sliderItemsToShow[0].clientWidth) / this.sliderItemOffset
+        );
+      } else {
+        this.slidesPerPage = Math.floor(
+          (this.slider.clientWidth - this.sliderItemsToShow[0].offsetLeft) / this.sliderItemOffset
+        );
+      }
+
+      // Calculate total number of pages
+      // 2
+      this.totalPages = Math.ceil(this.sliderItemsToShow.length / this.slidesPerPage);
+
+      // Trigger update
+      this.update();
+    }
+  }
   resetPages() {
-    this.sliderItems = this.querySelectorAll('[id^="Slide-"]');
-    this.initPages();
+    (this.sliderItems = this.querySelectorAll('[id^="Slide-"]')), this.initPages();
   }
-
   update() {
-    // Temporarily prevents unneeded updates resulting from variant changes
-    // This should be refactored as part of https://github.com/Shopify/dawn/issues/2057
-    if (!this.slider || !this.nextButton) return;
+    if (!this.slider || !this.nextButton) {
+      return;
+    }
 
     const previousPage = this.currentPage;
-    this.currentPage = Math.round(this.slider.scrollLeft / this.sliderItemOffset) + 1;
 
+    // Calculate the current page based on scroll position and item offset
+    this.currentPage = Math.round(Math.abs(this.slider.scrollLeft) / this.sliderItemOffset) + this.slidesPerPage;
+    this.currentPage = Math.round(this.currentPage / this.slidesPerPage);
+
+    // Update the UI elements if they exist
     if (this.currentPageElement && this.pageTotalElement) {
       this.currentPageElement.textContent = this.currentPage;
       this.pageTotalElement.textContent = this.totalPages;
     }
 
-    if (this.currentPage != previousPage) {
+    // Dispatch event if the page changed
+    if (this.currentPage !== previousPage) {
       this.dispatchEvent(
         new CustomEvent('slideChanged', {
           detail: {
@@ -787,36 +815,52 @@ class SliderComponent extends HTMLElement {
       );
     }
 
-    if (this.enableSliderLooping) return;
+    // Handle enabling/disabling of navigation buttons (if slider looping is off)
+    if (!this.enableSliderLooping) {
+      const isFirstSlideVisible = this.isSlideVisible(this.sliderItemsToShow[0]) && this.slider.scrollLeft < 1;
+      const isLastSlideVisible = this.isSlideVisible(this.sliderItemsToShow[this.sliderItemsToShow.length - 1]);
 
-    if (this.isSlideVisible(this.sliderItemsToShow[0]) && this.slider.scrollLeft === 0) {
-      this.prevButton.setAttribute('disabled', 'disabled');
-    } else {
-      this.prevButton.removeAttribute('disabled');
-    }
+      if (isFirstSlideVisible) {
+        this.prevButton.setAttribute('disabled', 'disabled');
+      } else {
+        this.prevButton.removeAttribute('disabled');
+      }
 
-    if (this.isSlideVisible(this.sliderItemsToShow[this.sliderItemsToShow.length - 1])) {
-      this.nextButton.setAttribute('disabled', 'disabled');
-    } else {
-      this.nextButton.removeAttribute('disabled');
+      if (isLastSlideVisible) {
+        this.nextButton.setAttribute('disabled', 'disabled');
+      } else {
+        this.nextButton.removeAttribute('disabled');
+      }
     }
   }
-
   isSlideVisible(element, offset = 0) {
     const lastVisibleSlide = this.slider.clientWidth + this.slider.scrollLeft - offset;
     return element.offsetLeft + element.clientWidth <= lastVisibleSlide && element.offsetLeft >= this.slider.scrollLeft;
   }
-
   onButtonClick(event) {
     event.preventDefault();
-    const step = event.currentTarget.dataset.step || 1;
-    this.slideScrollPosition =
-      event.currentTarget.name === 'next'
-        ? this.slider.scrollLeft + step * this.sliderItemOffset
-        : this.slider.scrollLeft - step * this.sliderItemOffset;
+
+    // const step = event.currentTarget.dataset.step || 1;
+    const step = this.slidesPerPage;
+
+    console.log(step);
+
+    if (isRTL()) {
+      if (event.currentTarget.name === 'next') {
+        this.slideScrollPosition = this.slider.scrollLeft - step * this.sliderItemOffset;
+      } else {
+        this.slideScrollPosition = this.slider.scrollLeft + step * this.sliderItemOffset;
+      }
+    } else {
+      if (event.currentTarget.name === 'next') {
+        this.slideScrollPosition = this.slider.scrollLeft + step * this.sliderItemOffset;
+      } else {
+        this.slideScrollPosition = this.slider.scrollLeft - step * this.sliderItemOffset;
+      }
+    }
+
     this.setSlidePosition(this.slideScrollPosition);
   }
-
   setSlidePosition(position) {
     this.slider.scrollTo({
       left: position,
@@ -1282,51 +1326,39 @@ if (!customElements.get('bulk-add')) {
 }
 
 class CartPerformance {
-  static #metric_prefix = "cart-performance"
+  static #metric_prefix = 'cart-performance';
 
   static createStartingMarker(benchmarkName) {
-    const metricName = `${CartPerformance.#metric_prefix}:${benchmarkName}`
+    const metricName = `${CartPerformance.#metric_prefix}:${benchmarkName}`;
     return performance.mark(`${metricName}:start`);
   }
 
   static measureFromEvent(benchmarkName, event) {
-    const metricName = `${CartPerformance.#metric_prefix}:${benchmarkName}`
+    const metricName = `${CartPerformance.#metric_prefix}:${benchmarkName}`;
     const startMarker = performance.mark(`${metricName}:start`, {
-      startTime: event.timeStamp
+      startTime: event.timeStamp,
     });
 
     const endMarker = performance.mark(`${metricName}:end`);
 
-    performance.measure(
-      metricName,
-      `${metricName}:start`,
-      `${metricName}:end`
-    );
+    performance.measure(benchmarkName, `${metricName}:start`, `${metricName}:end`);
   }
 
   static measureFromMarker(benchmarkName, startMarker) {
-    const metricName = `${CartPerformance.#metric_prefix}:${benchmarkName}`
+    const metricName = `${CartPerformance.#metric_prefix}:${benchmarkName}`;
     const endMarker = performance.mark(`${metricName}:end`);
 
-    performance.measure(
-      metricName,
-      startMarker.name,
-      `${metricName}:end`
-    );
+    performance.measure(benchmarkName, startMarker.name, `${metricName}:end`);
   }
 
   static measure(benchmarkName, callback) {
-    const metricName = `${CartPerformance.#metric_prefix}:${benchmarkName}`
+    const metricName = `${CartPerformance.#metric_prefix}:${benchmarkName}`;
     const startMarker = performance.mark(`${metricName}:start`);
 
     callback();
 
     const endMarker = performance.mark(`${metricName}:end`);
 
-    performance.measure(
-      metricName,
-      `${metricName}:start`,
-      `${metricName}:end`
-    );
+    performance.measure(benchmarkName, `${metricName}:start`, `${metricName}:end`);
   }
 }

@@ -31,13 +31,13 @@
         },
         "text_alignment": {
           "options__1": {
-            "label": "Left"
+            "label": "right"
           },
           "options__2": {
             "label": "Center"
           },
           "options__3": {
-            "label": "Right"
+            "label": "left"
           },
           "label": "Text alignment"
         }
@@ -90,16 +90,16 @@
       "settings": {
         "position": {
           "options__1": {
-            "label": "Bottom left"
-          },
-          "options__2": {
             "label": "Bottom right"
           },
+          "options__2": {
+            "label": "Bottom left"
+          },
           "options__3": {
-            "label": "Top left"
+            "label": "Top right"
           },
           "options__4": {
-            "label": "Top right"
+            "label": "Top left"
           },
           "label": "Position on cards"
         },
@@ -422,10 +422,10 @@
           "label": "Blob"
         },
         "options__4": {
-          "label": "Chevron left"
+          "label": "Chevron right"
         },
         "options__5": {
-          "label": "Chevron right"
+          "label": "Chevron left"
         },
         "options__6": {
           "label": "Diamond"
@@ -449,11 +449,11 @@
           "label": "Change every"
         },
         "heading_utilities": {
-         "content": "Utilities"
+          "content": "Utilities"
         },
         "paragraph": {
           "content": "Appear only on large screens"
-        },                     
+        },
         "show_social": {
           "label": "Social media icons",
           "info": "[Manage social accounts](/editor?context=theme&category=social%20media)"
@@ -478,13 +478,13 @@
             "text_alignment": {
               "label": "Text alignment",
               "options__1": {
-                "label": "Left"
+                "label": "right"
               },
               "options__2": {
                 "label": "Center"
               },
               "options__3": {
-                "label": "Right"
+                "label": "left"
               }
             },
             "link": {
@@ -517,7 +517,7 @@
         },
         "header_layout": {
           "content": "Layout"
-        },            
+        },
         "desktop_layout": {
           "label": "Layout",
           "options__1": {
@@ -608,9 +608,9 @@
           "default": "Collections",
           "label": "Heading"
         },
-         "header_layout": {
-        "content": "Layout"
-        },        
+        "header_layout": {
+          "content": "Layout"
+        },
         "image_ratio": {
           "label": "Image ratio",
           "options__1": {
@@ -692,17 +692,17 @@
           "label": "Heading"
         },
         "layout_header": {
-        "content": "Layout"
+          "content": "Layout"
         },
         "text_header": {
-        "content": "Text"
-        },        
+          "content": "Text"
+        },
         "blog": {
           "label": "Blog"
         },
         "post_limit": {
           "label": "Post count"
-        }, 
+        },
         "columns_desktop": {
           "label": "Columns"
         },
@@ -728,7 +728,7 @@
       "name": "Featured collection",
       "settings": {
         "header_text": {
-        "content": "Text"
+          "content": "Text"
         },
         "title": {
           "label": "Heading",
@@ -756,8 +756,8 @@
           "content": "Collection layout"
         },
         "header_mobile": {
-        "content": "Mobile layout"
-        },                 
+          "content": "Mobile layout"
+        },
         "collection": {
           "label": "Collection"
         },
@@ -961,10 +961,10 @@
           "label": "Position",
           "info": "Position is automatically optimized for mobile.",
           "options__1": {
-            "label": "Left"
+            "label": "right"
           },
           "options__2": {
-            "label": "Right"
+            "label": "left"
           }
         },
         "hide_variants": {
@@ -1177,37 +1177,37 @@
           "options__4": {
             "label": "Large"
           }
-          },
+        },
         "content": {
           "content": "Content"
         },
         "desktop_content_position": {
           "options__1": {
-            "label": "Top Left"
+            "label": "Top right"
           },
           "options__2": {
             "label": "Top Center"
           },
           "options__3": {
-            "label": "Top Right"
+            "label": "Top left"
           },
           "options__4": {
-            "label": "Middle Left"
+            "label": "Middle right"
           },
           "options__5": {
             "label": "Middle Center"
           },
           "options__6": {
-            "label": "Middle Right"
+            "label": "Middle left"
           },
           "options__7": {
-            "label": "Bottom Left"
+            "label": "Bottom right"
           },
           "options__8": {
             "label": "Bottom Center"
           },
           "options__9": {
-            "label": "Bottom Right"
+            "label": "Bottom left"
           },
           "label": "Position"
         },
@@ -1216,13 +1216,13 @@
         },
         "desktop_content_alignment": {
           "options__1": {
-            "label": "Left"
+            "label": "right"
           },
           "options__2": {
             "label": "Center"
           },
           "options__3": {
-            "label": "Right"
+            "label": "left"
           },
           "label": "Alignment"
         },
@@ -1231,13 +1231,13 @@
         },
         "mobile_content_alignment": {
           "options__1": {
-            "label": "Left"
+            "label": "right"
           },
           "options__2": {
             "label": "Center"
           },
           "options__3": {
-            "label": "Right"
+            "label": "left"
           },
           "label": "Alignment"
         },
@@ -1282,9 +1282,9 @@
         "buttons": {
           "name": "Buttons",
           "settings": {
-          "header_1":{
-          "content": "Button 1"
-          },
+            "header_1": {
+              "content": "Button 1"
+            },
             "button_label_1": {
               "label": "Label",
               "info": "Leave blank to hide",
@@ -1296,7 +1296,7 @@
             "button_style_secondary_1": {
               "label": "Outline style"
             },
-            "header_2":{
+            "header_2": {
               "content": "Button 2"
             },
             "button_label_2": {
@@ -1320,12 +1320,12 @@
     "image-with-text": {
       "name": "Image with text",
       "settings": {
-      "header": {
-      "content": "Content"
-      },
-      "header_colors": {
-      "content": "Colors" 
-      },
+        "header": {
+          "content": "Content"
+        },
+        "header_colors": {
+          "content": "Colors"
+        },
         "image": {
           "label": "Image"
         },
@@ -1496,15 +1496,15 @@
         "image": {
           "label": "Image"
         },
-        "header":{
-        "content": "Image"
+        "header": {
+          "content": "Image"
         },
-        "header_2":{
-        "content": "Content"
+        "header_2": {
+          "content": "Content"
         },
-        "header_3":{
-        "content": "Colors"
-        },        
+        "header_3": {
+          "content": "Colors"
+        },
         "image_height": {
           "options__1": {
             "label": "Adapt to image"
@@ -1552,13 +1552,13 @@
         },
         "desktop_content_alignment": {
           "options__1": {
-            "label": "Left"
+            "label": "right"
           },
           "options__2": {
             "label": "Center"
           },
           "options__3": {
-            "label": "Right"
+            "label": "left"
           },
           "label": "Alignment"
         },
@@ -1576,16 +1576,16 @@
         },
         "image_layout": {
           "options__1": {
-            "label": "Alternate from left"
-          },
-          "options__2": {
             "label": "Alternate from right"
           },
+          "options__2": {
+            "label": "Alternate from left"
+          },
           "options__3": {
-            "label": "Aligned left"
+            "label": "Aligned right"
           },
           "options__4": {
-            "label": "Aligned right"
+            "label": "Aligned left"
           },
           "label": "Placement"
         },
@@ -1594,13 +1594,13 @@
         },
         "mobile_content_alignment": {
           "options__1": {
-            "label": "Left"
+            "label": "right"
           },
           "options__2": {
             "label": "Center"
           },
           "options__3": {
-            "label": "Right"
+            "label": "left"
           },
           "label": "Mobile alignment"
         }
@@ -2295,7 +2295,7 @@
             },
             "pairing_2": {
               "label": "Pairing 2"
-            },            
+            },
             "icon_2": {
               "label": "Icon"
             },
@@ -2307,8 +2307,8 @@
               "default": "Heading"
             },
             "pairing_3": {
-            "label": "Pairing 3"
-            },             
+              "label": "Pairing 3"
+            },
             "icon_3": {
               "label": "Icon"
             },
@@ -2374,10 +2374,10 @@
         "media_position": {
           "label": "Position",
           "options__1": {
-            "label": "Left"
+            "label": "right"
           },
           "options__2": {
-            "label": "Right"
+            "label": "left"
           }
         },
         "media_fit": {
@@ -2429,7 +2429,7 @@
           "options__2": {
             "label": "2"
           }
-        },        
+        },
         "image_ratio": {
           "label": "Image ratio",
           "options__1": {
@@ -2481,10 +2481,10 @@
         },
         "header_layout": {
           "content": "Layout"
-        },                            
+        },
         "header_button": {
           "content": "Button"
-        }, 
+        },
         "image_width": {
           "label": "Width",
           "options__1": {
@@ -2522,6 +2522,9 @@
           },
           "options__2": {
             "label": "Center"
+          },
+          "options__3": {
+            "label": "Right"
           }
         },
         "background_style": {
@@ -2643,31 +2646,31 @@
         },
         "desktop_content_position": {
           "options__1": {
-            "label": "Top Left"
+            "label": "Top right"
           },
           "options__2": {
             "label": "Top Center"
           },
           "options__3": {
-            "label": "Top Right"
+            "label": "Top left"
           },
           "options__4": {
-            "label": "Middle Left"
+            "label": "Middle right"
           },
           "options__5": {
             "label": "Middle Center"
           },
           "options__6": {
-            "label": "Middle Right"
+            "label": "Middle left"
           },
           "options__7": {
-            "label": "Bottom Left"
+            "label": "Bottom right"
           },
           "options__8": {
             "label": "Bottom Center"
           },
           "options__9": {
-            "label": "Bottom Right"
+            "label": "Bottom left"
           },
           "label": "Position"
         },
@@ -2691,16 +2694,16 @@
         },
         "content_header": {
           "content": "Content"
-        },        
+        },
         "desktop_content_alignment": {
           "options__1": {
-            "label": "Left"
+            "label": "right"
           },
           "options__2": {
             "label": "Center"
           },
           "options__3": {
-            "label": "Right"
+            "label": "left"
           },
           "label": "Alignment"
         },
@@ -2709,13 +2712,13 @@
         },
         "mobile_content_alignment": {
           "options__1": {
-            "label": "Left"
+            "label": "right"
           },
           "options__2": {
             "label": "Center"
           },
           "options__3": {
-            "label": "Right"
+            "label": "left"
           },
           "label": "Alignment"
         },
@@ -2844,25 +2847,25 @@
       "settings": {
         "desktop_content_position": {
           "options__1": {
-            "label": "Left"
+            "label": "right"
           },
           "options__2": {
             "label": "Center"
           },
           "options__3": {
-            "label": "Right"
+            "label": "left"
           },
           "label": "Content position"
         },
         "content_alignment": {
           "options__1": {
-            "label": "Left"
+            "label": "right"
           },
           "options__2": {
             "label": "Center"
           },
           "options__3": {
-            "label": "Right"
+            "label": "left"
           },
           "label": "Content alignment"
         },
@@ -2923,8 +2926,8 @@
           "name": "Buttons",
           "settings": {
             "header_button1": {
-            "content": "Button 1"
-            }, 
+              "content": "Button 1"
+            },
             "button_label_1": {
               "label": "Label",
               "info": "Leave blank to hide",
@@ -2938,7 +2941,7 @@
             },
             "header_button2": {
               "content": "Button 2"
-            },             
+            },
             "button_label_2": {
               "label": "Label",
               "info": "Leave label blank to hide"
@@ -3078,7 +3081,7 @@
               "default": "Tell your brand's story through images"
             },
             "header_button": {
-            "content": "Button"      
+              "content": "Button"
             },
             "button_label": {
               "label": "Label",
@@ -3092,37 +3095,37 @@
               "label": "Outline style"
             },
             "box_align": {
-              "label": "Content position",              
+              "label": "Content position",
               "options__1": {
-                "label": "Top left"
+                "label": "Top right"
               },
               "options__2": {
                 "label": "Top center"
               },
               "options__3": {
-                "label": "Top right"
+                "label": "Top left"
               },
               "options__4": {
-                "label": "Middle left"
+                "label": "Middle right"
               },
               "options__5": {
                 "label": "Middle center"
               },
               "options__6": {
-                "label": "Middle right"
+                "label": "Middle left"
               },
               "options__7": {
-                "label": "Bottom left"
+                "label": "Bottom right"
               },
               "options__8": {
                 "label": "Bottom center"
               },
               "options__9": {
-                "label": "Bottom right"
+                "label": "Bottom left"
               }
             },
             "header_layout": {
-            "content": "Layout"                 
+              "content": "Layout"
             },
             "show_text_box": {
               "label": "Container"
@@ -3130,34 +3133,34 @@
             "text_alignment": {
               "label": "Content alignment",
               "option_1": {
-                "label": "Left"
+                "label": "right"
               },
               "option_2": {
                 "label": "Center"
               },
               "option_3": {
-                "label": "Right"
+                "label": "left"
               }
             },
             "image_overlay_opacity": {
               "label": "Overlay opacity"
             },
             "header_text": {
-            "content": "Text"      
+              "content": "Text"
             },
             "header_colors": {
-            "content": "Colors"                 
-            },            
+              "content": "Colors"
+            },
             "text_alignment_mobile": {
               "label": "Mobile content alignment",
               "options__1": {
-                "label": "Left"
+                "label": "right"
               },
               "options__2": {
                 "label": "Center"
               },
               "options__3": {
-                "label": "Right"
+                "label": "left"
               }
             }
           }
@@ -3180,13 +3183,13 @@
         "heading_alignment": {
           "label": "Heading alignment",
           "options__1": {
-            "label": "Left"
+            "label": "right"
           },
           "options__2": {
             "label": "Center"
           },
           "options__3": {
-            "label": "Right"
+            "label": "left"
           }
         },
         "layout_header": {
@@ -3208,8 +3211,8 @@
           "label": "Container color scheme"
         },
         "section_color_scheme": {
-        "label": "Section color scheme"
-        },        
+          "label": "Section color scheme"
+        },
         "open_first_collapsible_row": {
           "label": "Open first row"
         },

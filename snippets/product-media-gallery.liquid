@@ -40,6 +40,12 @@
   elsif section.settings.media_size == 'small'
     assign media_width = 0.45
   endif
+
+  if settings.dir == 'ltr'
+    assign dir = 'ltr'
+  else
+    assign dir = 'rtl'
+  endif
 -%}
 
 <media-gallery
@@ -126,6 +132,10 @@
       {%- endfor -%}
     </ul>
     <div class="slider-buttons quick-add-hidden{% if hide_mobile_slider %} small-hide{% endif %}">
+      {% if dir == 'ltr' %}
+      {% else %}
+
+      {% endif %}
       <button
         type="button"
         class="slider-button slider-button--prev"
@@ -137,10 +147,18 @@
         </span>
       </button>
       <div class="slider-counter caption">
-        <span class="slider-counter--current">1</span>
+        {% if dir == 'ltr' %}
+          <span class="slider-counter--current">1</span>
+        {% else %}
+          <span class="slider-counter--total">{{ media_count }}</span>
+        {% endif %}
         <span aria-hidden="true"> / </span>
         <span class="visually-hidden">{{ 'general.slider.of' | t }}</span>
-        <span class="slider-counter--total">{{ media_count }}</span>
+        {% if dir == 'ltr' %}
+          <span class="slider-counter--total">{{ media_count }}</span>
+        {% else %}
+          <span class="slider-counter--current">1</span>
+        {% endif %}
       </div>
       <button
         type="button"

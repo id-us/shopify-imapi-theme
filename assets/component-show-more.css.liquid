@@ -1,0 +1,22 @@
+{%- liquid
+  if settings.dir == 'ltr'
+    assign dir = 'ltr'
+  else
+    assign dir = 'rtl'
+  endif
+-%}
+
+.button-show-more {
+  {% if dir == 'ltr' %}
+    padding-left: 0;
+  {% else %}  
+    padding-right: 0;
+  {% endif %}
+  justify-content: flex-start;
+  padding-bottom: 1.1rem;
+}
+
+.button-show-more,
+.button-show-less {
+  margin-top: 1.5rem;
+}
